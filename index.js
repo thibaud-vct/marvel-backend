@@ -8,13 +8,11 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
     try {
-        console.log(req.query);
         const page = req.query.page * 100;
         const name = req.query.search;
         const response = await axios.get(
             `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.API_KEY_MARVEL}&skip=${page}&limit=100&name=${name}`
         );
-        // console.log(response.data);
         res.status(200).json(response.data);
     } catch (error) {
         res.status(400).json({ message: error.message });
